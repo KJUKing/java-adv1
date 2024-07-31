@@ -1,25 +1,24 @@
 package thread.sync;
 
-import util.MyLogger;
 import util.ThreadUtils;
 
-import static util.MyLogger.*;
+import static util.MyLogger.log;
 
-public class BankAccountV1 implements BankAccount {
+public class BankAccountV2 implements BankAccount {
 
     private int balance;
 
-    public BankAccountV1(int initialBalance) {
+    public BankAccountV2(int initialBalance) {
         this.balance = initialBalance;
     }
 
     @Override
-    public int getBalance() {
+    public synchronized int getBalance() {
         return balance;
     }
 
     @Override
-    public boolean withdraw(int amount) {
+    public synchronized boolean withdraw(int amount) {
         log("거래시작 : " + getClass().getSimpleName());
         // 잔고가 출금액보다 적으면 진행하면안됨
         log("[검증 시작] 출금액: " + amount + ", 잔액 : " + balance);
@@ -34,7 +33,6 @@ public class BankAccountV1 implements BankAccount {
         balance = balance - amount;
         log("[출금 완료] 출금액: " + amount + ", 잔액 : " + balance);
         log("거래 종료");
-
 
         return true;
     }
