@@ -43,8 +43,7 @@ public class CasMainV3 {
         boolean result;
         do {
             getValue = atomicInteger.get();
-            sleep(100);
-
+            sleep(100); // 스레드 동시 실행을 위한 대기
             log("getValue : " + getValue);
             result = atomicInteger.compareAndSet(getValue, getValue + 1);
             log("result: " + result);
